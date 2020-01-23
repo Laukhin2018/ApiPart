@@ -1,12 +1,13 @@
 package tesrAPI;
 
+import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.http.ContentType;
 import org.junit.Test;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.ValidatableResponse;
 import com.jayway.restassured.specification.Argument;
 import org.hamcrest.*;
-
+import pojoModel.SuggestionsItem;
 
 
 import static com.jayway.restassured.RestAssured.given;
@@ -35,6 +36,30 @@ public class TestAp {
 
     @Test
     public void part1Test3(){
+
+        String baseUri = "https://www.wiley.com";
+        String basePath = "/en-us/search/autocomplete/comp_00001H9J";
+
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setBaseUri("https://www.wiley.com")
+                .setBasePath("/en-us/search/autocomplete/comp_00001H9J")
+                .setContentType(ContentType.JSON)
+                .addQueryParameter("term" , "Java")
+                .build();
+
+
+
+        RestAssured.given()
+                .when()
+                .get()
+                .then();
+
+        SuggestionsItem tetms = new SuggestionsItem();
+        System.out.println(tetms.getTerm());
+    }
+
+    @Test
+    public void part1Test4(){
 
         String baseUri = "https://www.wiley.com";
         String basePath = "/en-us/search/autocomplete/comp_00001H9J";
